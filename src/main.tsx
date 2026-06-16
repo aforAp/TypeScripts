@@ -2,7 +2,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App';
 import { ClerkProvider } from '@clerk/react'
-
+import { StreamVideoProvider } from './provider/StreamClientProvider';
+import { Toaster } from 'sonner';
 createRoot(document.getElementById('root')!).render(
    <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}   appearance={{
      elements: {
@@ -20,7 +21,10 @@ createRoot(document.getElementById('root')!).render(
       colorBackground: '#1c1f2e'
     },
   }}>
+<StreamVideoProvider>
 
 <App />
+<Toaster className='bg-dark-1 text-white'/>
+</StreamVideoProvider>
    </ClerkProvider> 
 );

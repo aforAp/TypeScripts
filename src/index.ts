@@ -10,4 +10,5 @@ import PersonalRoom from "./components/pages/PersonalRoom.tsx";
 import SignUp from "./components/auth/SignUp.tsx";
 import AuthButtons from "./components/auth/SignUp.tsx";
 import SignUps from "./components/auth/SignIn.tsx";
-export {Meeting, NavBar, Footer, HomeLayout, Home, Upcoming, AuthButtons, SignUps, Previous, Recordings,PersonalRoom, SignUp};
+import MeetingRoom from "./components/pages/MeetingRoom.tsx";
+export {Meeting, NavBar, Footer, HomeLayout,MeetingRoom, Home, Upcoming, AuthButtons, SignUps, Previous, Recordings,PersonalRoom, SignUp};
