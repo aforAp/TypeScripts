@@ -3,16 +3,22 @@ import SideBar from "@/components/pages/SideBar";
 import { type ReactNode} from "react";
 import {  Outlet, useNavigate } from "react-router";
 import { useAuth } from "@clerk/react";
+import { Navigate } from "react-router";
+import Loader from "@/components/Loader";
 
 const HomeLayout = ({children}: {children: ReactNode}) => {
   const navigate = useNavigate();
-  const {isSignedIn} = useAuth();
-   
-   if(!isSignedIn) {
-      navigate('/sign-in');
+  const {isLoaded, isSignedIn} = useAuth();
+
+  console.log(isSignedIn);
+   console.log("is this signed in", isSignedIn);
+   if(!isLoaded) {
+      return <Loader />;
    }
-
-
+   if(!isSignedIn) {
+    console.log("HomeLayout rendered");
+      return <Navigate to="/sign-in" replace />;
+   }
   return (
     <main className="relative bg-dark-2">
         <NavBar />
@@ -25,7 +31,7 @@ const HomeLayout = ({children}: {children: ReactNode}) => {
             </section>
         </div>
     </main>
-  )
+  );
 }
 
 export default HomeLayout;

@@ -18,7 +18,7 @@ const MeetingRoom = () => {
     <main className="bg-dark-1 w-full h-screen">
       <StreamCall call={call}>
         <StreamTheme>
-{!isSetupComplete ? <MeetingSetup />: <MeetingRooms />}
+{!isSetupComplete ? <MeetingSetup setIsSetupComplete={setIsSetupComplete} />: <MeetingRooms />}
         </StreamTheme>
       </StreamCall>
     </main>

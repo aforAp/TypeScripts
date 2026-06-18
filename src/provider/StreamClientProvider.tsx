@@ -47,8 +47,11 @@ console.log(user);
   }, [user, isLoaded, token]);
 
 
+ 
+ if(!user) {return children}; 
+
   if(!videoClient) return <Loader />;
-  return (
+    return (
     <StreamVideo client={videoClient}>
 {children}
     </StreamVideo>

@@ -1,7 +1,8 @@
-import { useCall, VideoPreview } from "@stream-io/video-react-sdk"
+import { DeviceSettings, useCall, VideoPreview } from "@stream-io/video-react-sdk"
 import { useEffect, useState } from "react"
+import { Button } from "./ui/button";
 
-const MeetingSetup = () => {
+const MeetingSetup = ({setIsSetupComplete} : {setIsSetupComplete: (value: boolean) => void}) => {
     const [isMicCamToggledOn, setIsMicCamToggledOn] = useState(false);
 
     const call = useCall();
@@ -19,21 +20,25 @@ const MeetingSetup = () => {
          }
     }, [isMicCamToggledOn, call?.camera, call?.microphone]);
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center gap-3 text-white">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-3 text-white bg-dark-1">
       <h1 className="text-2xl font-bold">
         Setup
       </h1>
-      <div className="flex flex-col w-1/2 h-1/2">
 
       <VideoPreview />
       <div className="flex h-16 items-center justify-center gap-3">
-        <label className="flex items-center justify-center">
-
+        <label className="flex items-center justify-center gap-2 font-medium">
+           <input type="checkbox" checked={isMicCamToggledOn} onChange={(e) => setIsMicCamToggledOn(e.target.checked)} /> 
+           Join with mic and camera off
         </label>
+        <DeviceSettings />
       </div>
-      </div>
+      <Button className="flex justify-center rounded-md bg-green-500 px-4 py-2.5" onClick={() => {call.join(); setIsSetupComplete(true);}}>
+Join Meeting
+      </Button>
+     
     </div>
   )
 }
 
-export default MeetingSetup
+export default MeetingSetup;
