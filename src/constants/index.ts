@@ -25,3 +25,12 @@ export const sidebarLinks = [
         imgUrl: '/zoom/icons/add-personal.svg'
     }
 ]
+
+
+export const avatarImages = [
+  '/zoom/images/avatar-1.jpeg',
+  '/zoom/images/avatar-2.jpeg',
+  '/zoom/images/avatar-3.png',
+  '/zoom/images/avatar-4.png',
+  '/zoom/images/avatar-5.png',
+];

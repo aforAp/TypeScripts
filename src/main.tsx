@@ -5,7 +5,10 @@ import { ClerkProvider } from '@clerk/react'
 import { StreamVideoProvider } from './provider/StreamClientProvider';
 import { Toaster } from 'sonner';
 import '@stream-io/video-react-sdk/dist/css/styles.css';
+import 'react-datepicker/dist/react-datepicker.css';
+
 createRoot(document.getElementById('root')!).render(
+
    <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}   appearance={{
      elements: {
     socialButtonsBlockButtonText: {
@@ -28,4 +31,5 @@ createRoot(document.getElementById('root')!).render(
 <Toaster className='bg-dark-1 text-white'/>
 </StreamVideoProvider>
    </ClerkProvider> 
+  
 );

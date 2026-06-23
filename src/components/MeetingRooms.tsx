@@ -1,9 +1,11 @@
 import { cn } from "@/lib/utils";
-import { CallControls, CallParticipantsList, CallStatsButton, PaginatedGridLayout, SpeakerLayout } from "@stream-io/video-react-sdk";
+import { CallControls, CallingState, CallParticipantsList, CallStatsButton, PaginatedGridLayout, SpeakerLayout, useCallStateHooks } from "@stream-io/video-react-sdk";
 import { useState } from "react"
 import {DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import { LayoutList, Users } from "lucide-react";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
+import EndCallButton from "./EndCallButton";
+import Loader from "./Loader";
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right';
 
@@ -11,9 +13,13 @@ const MeetingRooms = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const isPersonalRoom = !!searchParams.get('personal');
   //making the router boolean true value into real true values.
-  
+  const navigate = useNavigate();
   const [layout, setLayout] = useState<CallLayoutType>('speaker-left');
 const [showParticipants, setShowParticipants] = useState('false');
+const {useCallCallingState} = useCallStateHooks();
+const callingState = useCallCallingState();
+
+if(callingState !== CallingState.JOINED) return <Loader />;
   const CallLayout = () => {
     switch(layout) {
       case 'grid':
@@ -34,8 +40,8 @@ const [showParticipants, setShowParticipants] = useState('false');
 <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
        </div>
-       <div className="fixed bottom-0 flex w-full items-center justify-center gap-5">
-        <CallControls />
+       <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap">
+        <CallControls onLeave={() => navigate('/')}/>
         <DropdownMenu>
           <div className="flex items-center">
 <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]">
@@ -59,9 +65,10 @@ const [showParticipants, setShowParticipants] = useState('false');
    <Users size={20} className="text-white" />
   </div>
   </button>
+  {!isPersonalRoom && <EndCallButton />}
        </div>
     </section>
   )
 }
 
-export default MeetingRooms
+export default MeetingRooms;
